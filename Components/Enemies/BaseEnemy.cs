@@ -7,7 +7,6 @@ public partial class BaseEnemy : CharacterBody2D
 	public int Health { get; set; }
     public float Speed { get; set; }
 	public int Damage { get; set; }
-	public float KnockbackStrength = 100f;
 
 	// Attack Cooldown
 	private float attackCooldown = 0.4f;  
@@ -41,7 +40,6 @@ public partial class BaseEnemy : CharacterBody2D
         {
             player.Call("TakeDamage", Damage);
             cooldownTimer = attackCooldown;
-			ApplyKnockBack();
         }
     }
 
@@ -82,21 +80,6 @@ public partial class BaseEnemy : CharacterBody2D
 		if (body is Player)
 		{
 			playerInRange = false;  
-		}
-	}
-
-	// Knockback for the player.
-	private void ApplyKnockBack() 
-	{
-		if (player is Player playerBody)
-		{
-			// Calculate knockback direction (from enemy to player)
-			Vector2 knockbackDirection = (playerBody.GlobalPosition - GlobalPosition).Normalized();
-			
-			// Apply impulse/knockback force to the player
-			playerBody.ApplyKnockback(knockbackDirection, KnockbackStrength);
-
-			GD.Print("Player knocked back");
 		}
 	}
 }

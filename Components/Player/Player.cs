@@ -22,11 +22,6 @@ public partial class Player : CharacterBody2D
 	// ref to inventory.
 	private Inventory inventory;
 
-	// Knockback variables
-	private Vector2 knockbackVelocity = Vector2.Zero;
-	private float knockbackDuration = 0.1f; 
-	private float knockbackTimer = 0f; 
-
 	private float attackCooldown = 0.4f;  
 	private float cooldownTimer = 0f;
 
@@ -39,16 +34,6 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-
-		// Knockback logic
-		if (knockbackTimer > 0)
-		{
-			knockbackTimer -= (float)delta;
-			Velocity = knockbackVelocity; // Apply knockback velocity
-			MoveAndSlide();
-			return; // Skip player movement while knockback is active
-		}
-
 		// Velocity movement
 		Vector2 velocity = Velocity;
 
@@ -94,14 +79,6 @@ public partial class Player : CharacterBody2D
 		Health -= damage;
 		GD.Print(Health);
         if (Health <= 0) QueueFree();
-	}
-
-	// For the knockback of the player.
-	public void ApplyKnockback(Vector2 knockbackDirection, float knockbackStrength) 
-	{
-		knockbackVelocity = knockbackDirection * knockbackStrength;
-		knockbackTimer = knockbackDuration; // Reset the knockback timer
-		GD.Print("Player knocked back with velocity: ", knockbackVelocity);
 	}
 
 

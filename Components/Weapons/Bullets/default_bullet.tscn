@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpvxbr4jcklmn"]
+
+[ext_resource type="Script" path="res://Components/Weapons/Bullets/DefaultBullet.cs" id="1_4fexm"]
+[ext_resource type="Texture2D" uid="uid://bpus8v4gcgu2h" path="res://Graphics/Weapons/Bullets/GenericBullet.png" id="1_ug136"]
+
+[node name="DefaultBullet" type="Area2D"]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("1_4fexm")
+
+[node name="GenericBullet" type="Sprite2D" parent="."]
+position = Vector2(12, 8)
+texture = ExtResource("1_ug136")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(12, 8)
+polygon = PackedVector2Array(-11.1, -5.6, -11.1, -4.6, -12.1, -4.6, -12.1, -3.6, -13.1, -3.6, -13.1, -2.6, -14.1, -2.6, -14.1, 2.6, -13.1, 2.6, -13.1, 3.6, -12.1, 3.6, -12.1, 4.6, -11.1, 4.6, -11.1, 5.6, 7.1, 5.6, 7.1, 4.6, 9.1, 4.6, 9.1, 3.6, 10.1, 3.6, 10.1, 2.6, 11.1, 2.6, 11.1, 1.6, 12.1, 1.6, 12.1, -0.6, 11.1, -0.6, 11.1, -1.6, 10.1, -1.6, 10.1, -2.6, 9.1, -2.6, 9.1, -3.6, 8.1, -3.6, 8.1, -4.6, 6.1, -4.6, 6.1, -5.6)

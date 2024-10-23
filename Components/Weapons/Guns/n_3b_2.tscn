@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bksd2hju2tn3o"]
+
+[ext_resource type="Script" path="res://Components/Weapons/Guns/N3B2.cs" id="1_ofgsn"]
+[ext_resource type="Texture2D" uid="uid://8r62jw865q3i" path="res://Graphics/Weapons/Guns/N3B2.png" id="2_2k4iv"]
+
+[node name="N3B2" type="Node2D"]
+script = ExtResource("1_ofgsn")
+
+[node name="N3b2" type="Sprite2D" parent="."]
+position = Vector2(53.5, 18.5)
+scale = Vector2(1.39, 1.375)
+texture = ExtResource("2_2k4iv")

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://1k1w5dp3mldq"]
+
+[ext_resource type="Script" path="res://Components/Weapons/Guns/NineMM.cs" id="1_w8fr5"]
+[ext_resource type="Texture2D" uid="uid://der8721fpp2l5" path="res://Graphics/Weapons/Guns/9mm.png" id="2_ifgek"]
+
+[node name="9mm" type="Node2D"]
+script = ExtResource("1_w8fr5")
+
+[node name="9Mm" type="Sprite2D" parent="."]
+position = Vector2(41.5, 22.5)
+scale = Vector2(0.988372, 0.833333)
+texture = ExtResource("2_ifgek")

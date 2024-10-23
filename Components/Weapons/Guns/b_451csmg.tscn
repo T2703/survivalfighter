@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d38o522qsbl3d"]
+
+[ext_resource type="Script" path="res://Components/Weapons/Guns/B451csmg.cs" id="1_kuegx"]
+[ext_resource type="Texture2D" uid="uid://couef3xxwk6kt" path="res://Graphics/Weapons/Guns/B451C.png" id="2_snvbm"]
+
+[node name="B451CSMG" type="Node2D"]
+script = ExtResource("1_kuegx")
+
+[node name="B451c" type="Sprite2D" parent="."]
+position = Vector2(31, 14)
+texture = ExtResource("2_snvbm")

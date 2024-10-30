@@ -21,14 +21,27 @@ public partial class Player : CharacterBody2D
 
 	// ref to inventory.
 	private Inventory inventory;
-
+	
+	// Cooldowns
 	private float attackCooldown = 0.4f;  
 	private float cooldownTimer = 0f;
+    private float CoolDownTimerHealing = 0f;
+	private const float healingCooldownDuration = 25f;
+
+	// Timer for the healing 
+	private Timer timeToHeal;
 
 	public override void _Ready() {
 		base._Ready();
+
 		inventory = new Inventory();
 		AddChild(inventory);
+
+		timeToHeal = new Timer();
+		AddChild(timeToHeal);
+		timeToHeal.OneShot = true; // Ensure it only triggers once per heal
+    	timeToHeal.Timeout += OnHealTimeout;
+
 		sprite = GetNode<Sprite2D>("AssaultPlayer");
 	}
 
@@ -45,6 +58,7 @@ public partial class Player : CharacterBody2D
 		else velocity = Vector2.Zero;
 
 		if (cooldownTimer > 0) cooldownTimer -= (float)delta;
+		if (CoolDownTimerHealing > 0) CoolDownTimerHealing -= (float)delta;
 
 		Velocity = velocity;
 		MoveAndSlide();
@@ -62,6 +76,7 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionPressed("game_up")) input.Y -= 1;
 		if (Input.IsActionPressed("game_down")) input.Y += 1;
 		if (Input.IsActionJustPressed("switch")) inventory.SwtichWeapon();
+		if (Input.IsActionPressed("heal") && CoolDownTimerHealing <= 0 && Health < 100) HealPlayer();
 
 		return input;
 	}
@@ -71,6 +86,34 @@ public partial class Player : CharacterBody2D
 		// This does flipping if moving right or left.
 		if (direction.X < 0) sprite.Scale = new Vector2(-1, 1);
 		else if (direction.X > 0) sprite.Scale = new Vector2(1, 1);
+	}
+
+	// Heals the player
+	private void HealPlayer() 
+	{
+		// Unequip current weapon before healing.
+		if (inventory.GetCurrentWeapon() != null) 
+		{
+			inventory.GetCurrentWeapon().Visible = false;
+			inventory.GetCurrentWeapon().IsActive = false;
+		}
+
+		// Determines between how much to get healed so the player does not go over cap.
+		int newHealth = Mathf.Min(Health + 20, 100); 
+		Health = newHealth;
+		CoolDownTimerHealing = healingCooldownDuration;
+		GD.Print(CoolDownTimerHealing);
+	}
+
+	// This is called when the healing timer finishes
+	private void OnHealTimeout()
+	{
+		// Re-equip current weapon
+		if (inventory.GetCurrentWeapon() != null)
+		{
+			inventory.GetCurrentWeapon().Visible = true;
+			inventory.GetCurrentWeapon().IsActive = true;
+		}
 	}
 
 	// For when the player takes damage.
